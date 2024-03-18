@@ -10,7 +10,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import cgg.spring_security.spring_security.filters.RedirectAuthenticatedUserFilter;
 import cgg.spring_security.spring_security.services.CustomUserDetailsService;
 
 @Configuration
@@ -21,9 +24,11 @@ public class BasicAuth {
     @Bean
     SecurityFilterChain getSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity.csrf(csr -> csr.disable())
-                .authorizeHttpRequests(r -> r.requestMatchers("/signin").permitAll().requestMatchers("/users/**")
-                        .hasRole("NORMAL").requestMatchers("/**").permitAll())
+        httpSecurity.csrf(csr -> csr.disable()).addFilterBefore(new RedirectAuthenticatedUserFilter(),
+                UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(
+                        r -> r.requestMatchers("/signin").permitAll().requestMatchers("/users/**")
+                                .hasRole("NORMAL").requestMatchers("/**").permitAll())
                 .formLogin(login -> login.loginPage("/signin").loginProcessingUrl("/dologin")
                         .defaultSuccessUrl("/users/"))
                 .logout(logout -> logout.logoutUrl("/logout")

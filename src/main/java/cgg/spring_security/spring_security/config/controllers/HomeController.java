@@ -1,4 +1,4 @@
-package cgg.spring_security.spring_security.controllers;
+package cgg.spring_security.spring_security.config.controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;

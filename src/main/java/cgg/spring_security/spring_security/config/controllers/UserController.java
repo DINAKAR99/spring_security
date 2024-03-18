@@ -1,4 +1,4 @@
-package cgg.spring_security.spring_security.controllers;
+package cgg.spring_security.spring_security.config.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import cgg.spring_security.spring_security.entities.User;
 import cgg.spring_security.spring_security.repo.UserRepo;
 
-@RestController
+// @RestController
+@Controller
 @RequestMapping("/users")
 public class UserController {
     @Autowired
@@ -32,10 +34,17 @@ public class UserController {
     // }
 
     @GetMapping("/")
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(repo.findAll());
+    public String logginSuccess() {
+
+        return "SuccessPage";
 
     }
+    // @GetMapping("/")
+    // public ResponseEntity<List<User>> getAllUsers() {
+
+    // return ResponseEntity.ok(repo.findAll());
+
+    // }
 
     @GetMapping("/{name}")
     public ResponseEntity<User> getUserByName(@PathVariable String name) {

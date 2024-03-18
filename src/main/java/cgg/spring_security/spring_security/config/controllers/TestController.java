@@ -1,4 +1,4 @@
-package cgg.spring_security.spring_security.controllers;
+package cgg.spring_security.spring_security.config.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +9,7 @@ public class TestController {
     @GetMapping("/signin")
     public String getLoginPage() {
 
-        return "signup";
+        return "signin";
 
     }
 
